@@ -1,2 +1,3 @@
-# Project-Irinka
-JavaScript 3D Game Engine for HTML5 Canvas
+# Fizix Demo
+
+This is a demo of the *Fizix* Javascript Game Engine.
