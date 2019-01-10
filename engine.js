@@ -1,5 +1,5 @@
 /*
- * Project Irinka v0.1
+ * fizix-demo v0.1
  *
  * Copyright 2008, Hayk Avagyan
  */
@@ -230,7 +230,7 @@ function World( canvasId ){
 		return; 
 	}
 				
-	var DISTANCE = 200,
+	var DISTANCE = 1000,
 	    ctx = canvas.getContext('2d'),
 	    cw = canvas.width,
 	    ch = canvas.height,	
@@ -242,19 +242,18 @@ function World( canvasId ){
 		running = false,
 	    fpsCounter = 0,
 	    light = [ 0, 0, 1 ],
-	    eye = [ 0, 0, -300 ],
+	    eye = [ 0, 0, -700 ],
 	    eyeAngles = [ 0, 0, 0 ];
 		
 	    ctx.strokeStyle = '#FFFFFF';
 	    //canvas.style.backgroundColor = "#000000";
 	    			
-	this.add = function( pObjects ) {
-		if( typeof pObjects == 'object' ){
-			for( var i = 0; i < pObjects.length; i++ ){
-				if( typeof pObjects[i] == 'object' )
-					objects[objects.length] = pObjects[i];
-			}					
-		}			
+	this.add = objs => {
+		if (!Array.isArray(objs)) return;
+		
+		objs.forEach(obj => 
+			typeof obj === 'object' && objects.push(obj)
+		);		
 	};	
 	
 	this.run = function(){
@@ -273,7 +272,7 @@ function World( canvasId ){
 		clearInterval( updateId );
 		clearInterval( fpsId );	
 		fpsCounter = 0;
-		$( '#fps' ).html( fpsCounter );
+		// document.getElementById('fps').innerText( fpsCounter );
 	}
 	
 	this.isRunning = function(){
@@ -289,9 +288,10 @@ function World( canvasId ){
 			draw( surfs );
 		}	
 		fpsCounter++;
-	}	
+	}
+
 	function fps(){
-		$( '#fps' ).html( fpsCounter );
+		// document.getElementById('fps').innerText( fpsCounter );
 		fpsCounter = 0;
 	}
 	
@@ -309,7 +309,7 @@ function World( canvasId ){
 				vNewY = vNewY * Math.cos(-eyeAngles[2]) + vNewX * Math.sin(-eyeAngles[2]);	
 				var x = ( DISTANCE * vNewX ) / vNewZ;
 				var y = ( DISTANCE * vNewY ) / vNewZ;
-				surfs[i][j] = [ x * 5, y * 5 ];
+				surfs[i][j] = [x * 1, y * 1];
 			}
 			var sightCosine = 1 - ( Math.pow( t[i][3][0] - t[i][4][0], 2 ) + Math.pow( t[i][3][1] - t[i][4][1], 2 ) +
 								Math.pow( t[i][3][2] - t[i][4][2], 2 ) ) / 2;				
@@ -332,9 +332,9 @@ function World( canvasId ){
 		for( var i = 0; i < surfs.length; i++ ){
 			if( surfs[i][3] == -1 ) continue;
 			ctx.beginPath();
-			ctx.moveTo( cmx + surfs[i][0][0], cmy - surfs[i][0][1] ); 
-			ctx.lineTo( cmx + surfs[i][1][0], cmy - surfs[i][1][1] ); 
-			ctx.lineTo( cmx + surfs[i][2][0], cmy - surfs[i][2][1] ); 
+			ctx.moveTo(cmx + surfs[i][0][0], cmy - surfs[i][0][1]); 
+			ctx.lineTo(cmx + surfs[i][1][0], cmy - surfs[i][1][1]); 
+			ctx.lineTo(cmx + surfs[i][2][0], cmy - surfs[i][2][1]); 
 			ctx.closePath();
 			ctx.fillStyle = surfs[i][3];
 			//ctx.stroke();

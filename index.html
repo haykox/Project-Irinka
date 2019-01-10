@@ -1,1 +1,32 @@
-<h1>Hello</h1>
+<html>
+    <head>
+        <title>Fizix Demo</title>
+        <script src='engine.js'></script>
+    </head>
+
+    <style>
+        body { margin: 0}
+    </style>
+    
+    <body>
+        <canvas id='canvas' width=1920 height=1080></canvas>
+    </body>
+
+    <script type='text/javascript'>
+        const world = new World('canvas');
+
+        const redCube = new Cube({ color: '#FF4444', size: 80, pos: [200, 0, 0], xAngSpeed: 0.6, yAngSpeed: 0.2, zAngSpeed: 0.4, fromOrigin: true });
+        const blueCube = new Cube({ color: '#4444FF', size: 70, pos: [-200, 0, 0], xAngSpeed: 0.4, yAngSpeed: 0.1, zAngSpeed: 0.8, fromOrigin: true });
+        const greenSphere = new Sphere({ color: '#44FF44', radius: 70, slices: 30, portions: 50, pos: [200, 0, 0], xAngSpeed: 0.0, yAngSpeed: 0.1, zAngSpeed: 0.0, fromOrigin: false });
+
+        world.add([
+            redCube, 
+            blueCube, 
+            greenSphere
+        ]);
+
+        world.run();
+    </script>
+</html>
+
+
